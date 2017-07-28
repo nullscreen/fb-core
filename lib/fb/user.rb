@@ -1,7 +1,7 @@
 module Fb
   # Provides methods to interact with Facebook users through the Graph API.
   # @see https://developers.facebook.com/docs/graph-api/reference/user/
-  class User
+  class User < Resource
     # @param [Hash] options to initialize a User object.
     # @option [String] :access_token an access token for the user.
     def initialize(options = {})
@@ -23,16 +23,8 @@ module Fb
         params = {access_token: @access_token}
         request = HTTPRequest.new path: '/me/accounts', params: params
         request.run.body['data'].map do |page_data|
-          Page.new symbolize_keys(page_data)
+          Page.new symbolize_keys(page_data.merge access_token: @access_token)
         end
-      end
-    end
-
-  private
-
-    def symbolize_keys(hash)
-      {}.tap do |new_hash|
-        hash.each_key{|key| new_hash[key.to_sym] = hash[key]}
       end
     end
   end
