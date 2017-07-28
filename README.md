@@ -33,12 +33,23 @@ user.email # => 'john.smith@example.com'
 Fb::User#pages
 --------------
 
-Given an user access token with the `manage_pages` scope, you can get the list of Facebook pages managed by the user by calling:
+Given an user access token with the `pages_show_list` scope, you can get the list of Facebook pages managed by the user by calling:
 
 ```ruby
 user = Fb::User.new access_token: '--valid-access-token--'
 user.pages
 # => [#<Fb::Page: id="1234", name="sample1">, #<Fb::Page: id="5678", name="sample2">]
+```
+
+Fb::Page#posts
+--------------
+
+Given a page with posts, you can get the posts on the page since creation by calling:
+
+```ruby
+user = Fb::User.new access_token: '--valid-access-token--'
+user.pages.first.posts
+# => [#<Fb::Post: id="1234", type="sample1">, #<Fb::Post: id="5678", type="sample2">]
 ```
 
 ## Development

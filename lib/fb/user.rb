@@ -23,16 +23,8 @@ module Fb
         params = {access_token: @access_token}
         request = HTTPRequest.new path: '/me/accounts', params: params
         request.run.body['data'].map do |page_data|
-          Page.new symbolize_keys(page_data)
+          Page.new DataHelper.symbolize_keys(page_data)
         end
-      end
-    end
-
-  private
-
-    def symbolize_keys(hash)
-      {}.tap do |new_hash|
-        hash.each_key{|key| new_hash[key.to_sym] = hash[key]}
       end
     end
   end
