@@ -11,3 +11,4 @@ For more information about changelogs, check
 * [FEATURE] Added `Fb::User`
 * [FEATURE] Added `Fb::Page`
 * [FEATURE] Added `Fb::Page#posts`
+* [FEATURE] Added `Fb::Page#insights`
