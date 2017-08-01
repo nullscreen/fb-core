@@ -23,6 +23,17 @@ module Fb
       @access_token = options[:access_token]
     end
 
+    # @return [Hash{Symbol => Fb::Metric}] a hash of metric names mapped
+    #   to Fb::Metric objects.
+    def daily_insights
+      @insights ||= begin
+        request = HTTPRequest.new path: "/v2.9/#{@id}/insights", params: daily_insights_params
+        request.run.body['data'].map do |metric_data|
+          [metric_data.fetch('name').to_sym, Metric.new(symbolize_keys metric_data)]
+        end.to_h
+      end
+    end
+
     # @return [Array<Fb::Post>] the posts published on the page.
     def posts
       @posts ||= begin
@@ -38,6 +49,23 @@ module Fb
     # @return [String] the representation of the page.
     def to_s
       %Q(#<#{self.class.name} #{@id} "#{@name}">)
+    end
+
+  private
+
+    def daily_insights_params
+      {}.tap do |params|
+        params[:access_token] = @access_token
+        params[:metric] = daily_page_metrics.join ','
+        params[:period] = :day
+        params[:since] = '1652 days ago'
+      end
+    end
+
+    def daily_page_metrics
+      %i(page_video_views page_impressions page_impressions_paid
+      page_impressions_organic page_fan_adds page_fan_adds_unique
+      page_post_engagements page_engaged_users page_views_total)
     end
   end
 end
