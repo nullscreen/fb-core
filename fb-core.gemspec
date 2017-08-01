@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/Fullscreen/fb-core'
   spec.license       = 'MIT'
 
+  spec.required_ruby_version = '>= 2.4'
+
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
@@ -23,7 +25,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'fb-support', '~> 1.0.0.alpha1'
-
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
