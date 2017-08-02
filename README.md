@@ -52,6 +52,19 @@ page.posts
 # => [#<Fb::Post: id="1234", type="video">, #<Fb::Post: id="5678", type="video">]
 ```
 
+Fb::Page#daily_insights
+--------------
+
+Given a page with insights data, you can get insights on the page for the following metrics: `page_fans`, `page_video_views`, `page_impressions`, `page_impressions_paid`, `page_impressions_organic`, `page_fan_adds`, `page_post_engagements`, and `page_engaged_users`.
+
+The data for each metric is aggregated starting from two days ago up to 1652 days ago (approximately 4 and a half years).
+
+```ruby
+page = Fb::Page.new access_token: '--valid-access-token--'
+page.insights
+# => {:page_fan_adds => #<Fb::Metric>, :page_views_total => #<Fb::Metric>, ..}
+```
+
 ## Development
 
 To run tests, obtain a long-term access token for a Facebook user who manages
