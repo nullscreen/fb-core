@@ -47,9 +47,45 @@ Fb::Page#posts
 Given a page with posts, you can get the posts on the page since creation by calling:
 
 ```ruby
-page = Fb::Page.new access_token: '--valid-access-token--'
+page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
 page.posts
 # => [#<Fb::Post: id="1234", type="video">, #<Fb::Post: id="5678", type="video">]
+```
+
+Fb::Page#like_count
+--------------
+
+Given a page, you can get the the number of likes for the page.
+
+```ruby
+page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
+page.like_count
+# => 15000
+```
+
+Pass an `until` option to get the count at a certain date.
+
+```ruby
+page.like_count until: Date.today - 7
+# => 10000
+```
+
+Fb::Page#view_count
+--------------
+
+You can also get the the number of views for the page.
+
+```ruby
+page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
+page.view_count
+# => 12345
+```
+
+Pass an `until` option to get the count at a certain date.
+
+```ruby
+page.view_count until: Date.today - 7
+# => 10000
 ```
 
 ## Development
