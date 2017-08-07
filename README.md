@@ -63,7 +63,7 @@ page.like_count
 # => 15000
 ```
 
-Pass an `until` option to get the count at a certain date.
+Pass an `until` (`Date`) option to get the count at a certain date.
 
 ```ruby
 page.like_count until: Date.today - 7
@@ -81,11 +81,37 @@ page.view_count
 # => 12345
 ```
 
-Pass an `until` option to get the count at a certain date.
+Pass an `until` (`Date`) option to get the count at a certain date.
 
 ```ruby
 page.view_count until: Date.today - 7
 # => 10000
+```
+
+Fb::Page#weekly_metrics
+--------------
+
+`weekly_metrics` allows you to get metrics that are available weekly such as
+`page_views_total`, `page_impressions`, `page_fan_adds`, etc. Refer to
+[metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics)
+for a list of available weekly metrics.
+
+This method takes an array metrics and returns a hash of the metrics mapped to
+their values. Each metric value is the sum of the last 7 days. If today is July 20th,
+then the values will be for July 14 - July 20.
+
+```ruby
+metrics = %i(page_impressions page_fan_adds)
+page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
+page.weekly_metrics metrics # sum for July 14 - 20
+# => {:page_impressions => 1234, :page_fan_adds => 5678}
+```
+
+Pass an `until` (`Date`) option such as `Date.today - 7` to fetch 7 days prior to July 14th.
+
+```ruby
+page.weekly_metrics metrics, until: Date.today - 7  # sum for July 8 - 14
+# => {:page_impressions => 1234, :page_fan_adds => 5678}
 ```
 
 ## Development

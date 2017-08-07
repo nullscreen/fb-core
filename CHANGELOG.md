@@ -13,3 +13,4 @@ For more information about changelogs, check
 * [FEATURE] Added `Fb::Page#posts`
 * [FEATURE] Added `Fb::Page#like_count`
 * [FEATURE] Added `Fb::Page#view_count`
+* [FEATURE] Added `Fb::Page#weekly_metrics`
