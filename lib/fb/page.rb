@@ -23,10 +23,24 @@ module Fb
       @access_token = options[:access_token]
     end
 
+    # @return [Hash<Date, Integer>]  a hash of Dates mapped to their values.
+    # @param [String] :metric the metric to fetch.
+    # @param [<String, Symbol>] :period the aggregate period (day, week, days_28).
+    # @option [Date] :since only return dates ahead to this date (lower bound).
+    # @option [Date] :until only return dates previous to this day (upper bound).
+    def metric_insights(metric, period, options = {})
+      insights = insights Array(metric), options.merge(period: period)
+      values = insights.find{|data| data['name'] == metric}['values']
+      values.map do |v|
+        [Date.strptime(v['end_time'], '%Y-%m-%dT%H:%M:%S+0000'), v.fetch('value', 0)]
+      end.to_h
+    end
+
+    #values.map {|v| [Date.strptime(v['end_time'], '%Y-%m-%dT%H:%M:%S+0000'), v.fetch('value', 0)]}.to_h
     # @return [Hash] a hash of metrics mapped to their values.
     # @param [Array<String, Symbol>] :metrics the metrics to fetch.
     # @option [Date] :until only sum seven days before this date.
-    def weekly_metrics(metrics, options = {})
+    def weekly_insights(metrics, options = {})
       since_date = options.fetch :until, Date.today - 1
       params = {period: :week, since: since_date, until: since_date + 2}
       metrics = insights Array(metrics), params
@@ -37,11 +51,9 @@ module Fb
     # @param [Hash] options the options
     # @option [Date] :until only count the views until this day.
     def view_count(options = {})
-      views = single_metric 'page_views_total', period: :day, since: '1652 days ago'
-      if options[:until]
-        views.select!{|v| v['end_time'] < options[:until].strftime('%Y-%m-%dT%H:%M:%S+0000')}
-      end
-      views.sum{|x| x.fetch('value', 0)}
+      views = metric_insights 'page_views_total', 'day', since: '1652 days ago'
+      views.select!{|date, _| date < options[:until]} if options[:until]
+      views.values.sum
     end
 
     # @return [Integer] the number of likes of the page.
@@ -49,8 +61,8 @@ module Fb
     # @option [Date] :until only count the likes until this day.
     def like_count(options = {})
       since_date = options.fetch :until, Date.today - 1
-      likes = single_metric 'page_fans', since: since_date, until: since_date + 2
-      likes.last.fetch('value', 0)
+      likes = metric_insights 'page_fans', 'lifetime', since: since_date, until: since_date + 2
+      likes[since_date+1]
     end
 
     # @return [Array<Fb::Post>] the posts published on the page.
@@ -71,11 +83,6 @@ module Fb
     end
 
   private
-
-    def single_metric(metric, options = {})
-      insights = insights Array(metric), options
-      insights.find{|data| data['name'] == metric}['values']
-    end
 
     def insights(metrics, options = {})
       params = options.merge metric: metrics.join(','), access_token: @access_token

@@ -88,10 +88,10 @@ page.view_count until: Date.today - 7
 # => 10000
 ```
 
-Fb::Page#weekly_metrics
+Fb::Page#weekly_insights
 --------------
 
-`weekly_metrics` allows you to get metrics that are available weekly such as
+`weekly_insights` allows you to get metrics that are available weekly such as
 `page_views_total`, `page_impressions`, `page_fan_adds`, etc. Refer to
 [metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics)
 for a list of available weekly metrics.
@@ -103,15 +103,45 @@ then the values will be for July 14 - July 20.
 ```ruby
 metrics = %i(page_impressions page_fan_adds)
 page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
-page.weekly_metrics metrics # sum for July 14 - 20
+page.weekly_insights metrics # sum for July 14 - 20
 # => {:page_impressions => 1234, :page_fan_adds => 5678}
 ```
 
 Pass an `until` (`Date`) option such as `Date.today - 7` to fetch 7 days prior to July 14th.
 
 ```ruby
-page.weekly_metrics metrics, until: Date.today - 7  # sum for July 8 - 14
+page.weekly_insights metrics, until: Date.today - 7  # sum for July 8 - 14
 # => {:page_impressions => 1234, :page_fan_adds => 5678}
+```
+
+Fb::Page#metric_insights
+--------------
+
+You can get an individual metric through using `metric_insights` which takes a
+metric, period, and options (since & until). Refer to
+[metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics)
+for a list of available weekly metrics and periods.
+
+**Ensure that the period that you are using is supported by the metric**.
+For example, `page_views_total` (page views) is available for `week`, `week`, and `days_28`
+whereas `page_fans` (page likes) is only available as `lifetime`.
+
+`metric_insights` returns a hash of Dates mapped to values. Passing `since` only return dates ahead
+to this date (lower bound) and passing `until` will return dates previous to this day
+(upper bound & defaults to 2 days ago). Combining both options will return the dates in between.
+
+```ruby
+page = Fb::Page.new access_token: '--valid-access-token--', id: '--valid-id--'
+metric_insights = page.metric_insights 'page_views_total', :day # let today be August 7th
+# => {#<Date: 2017-08-04> => 598, <Date: 2017-08-05> => 548}
+```
+
+With `until` (`Date`) and `since` (`Date`).
+
+```ruby
+options = {since: Date.today - 9, until: Date.today}
+metric_insights = page.metric_insights metric, :day, options
+# => {#<Date: 2017-08-01> => 639,..,#<Date: 2017-08-05 => 548}
 ```
 
 ## Development
