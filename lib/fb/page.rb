@@ -36,7 +36,6 @@ module Fb
       end.to_h
     end
 
-    #values.map {|v| [Date.strptime(v['end_time'], '%Y-%m-%dT%H:%M:%S+0000'), v.fetch('value', 0)]}.to_h
     # @return [Hash] a hash of metrics mapped to their values.
     # @param [Array<String, Symbol>] :metrics the metrics to fetch.
     # @option [Date] :until only sum seven days before this date.
@@ -66,10 +65,11 @@ module Fb
     end
 
     # @return [Array<Fb::Post>] the posts published on the page.
-    def posts
+    # @option [Time] :since only return posts ahead of this time.
+    # @option [Time] :until only return posts previous to this time.
+    def posts(options = {})
       @posts ||= begin
-        fields = %i(type created_time).join ','
-        params = {access_token: @access_token, limit: 100, fields: fields}
+        params = posts_params.merge options
         request = PaginatedRequest.new path: "/v2.9/#{@id}/posts", params: params
         request.run.body['data'].map do |post_data|
           Post.new symbolize_keys post_data
@@ -88,6 +88,14 @@ module Fb
       params = options.merge metric: metrics.join(','), access_token: @access_token
       request = HTTPRequest.new path: "/v2.9/#{@id}/insights", params: params
       request.run.body['data']
+    end
+
+    def posts_params
+      {}.tap do |params|
+        params[:access_token] = @access_token
+        params[:limit] = 100
+        params[:fields]= %i(id message permalink_url created_time type properties).join ','
+      end
     end
   end
 end

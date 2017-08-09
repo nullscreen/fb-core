@@ -52,6 +52,14 @@ page.posts
 # => [#<Fb::Post: id="1234", type="video">, #<Fb::Post: id="5678", type="video">]
 ```
 
+Pass `since` (`Time`) and `until` (`Time`) options to get posts in between the two times.
+
+```ruby
+options = { since: Time.new(2015, 05, 15), until: Time.now }
+page.posts(options)
+# => [#<Fb::Post: id="5678", type="video">,..]
+```
+
 Fb::Page#like_count
 --------------
 
@@ -120,7 +128,7 @@ Fb::Page#metric_insights
 You can get an individual metric through using `metric_insights` which takes a
 metric, period, and options (since & until). Refer to
 [metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics)
-for a list of available weekly metrics and periods.
+for a list of available metrics and periods.
 
 **Ensure that the period that you are using is supported by the metric**.
 For example, `page_views_total` (page views) is available for `week`, `week`, and `days_28`
