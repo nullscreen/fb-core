@@ -9,7 +9,8 @@ module Fb
     # @raise [Fb::HTTPError] if the request fails.
     def run
       response = super
-      while after = response.body.dig('paging', 'cursors', 'after')
+      while response.body.dig 'paging', 'next'
+        after = response.body.dig 'paging', 'cursors', 'after'
         next_params = @params.merge after: after, limit: 100
         next_request = HTTPRequest.new path: @path, params: next_params
         next_body = next_request.run.body
