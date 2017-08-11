@@ -28,4 +28,15 @@ RSpec.describe 'Fb::Page#posts' do
       expect(page.posts(options).map &:created_at).to all (be <= options[:until])
     end
   end
+
+  context 'given with_metrics' do
+    it 'returns an array of posts with metrics' do
+      expect(page.posts(with_metrics: true).map &:engaged_users).to all (be_an Integer)
+      video_posts = page.posts(with_metrics: true).select{|post| post.type == 'video'}
+      expect(video_posts.map &:video_views).to all (be_an Integer)
+      expect(video_posts.map &:video_views_organic).to all (be_an Integer)
+      expect(video_posts.map &:video_views_paid).to all (be_an Integer)
+      expect(video_posts.map &:total_minutes_watched).to all (be_an Integer)
+    end
+  end
 end
