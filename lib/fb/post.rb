@@ -2,7 +2,8 @@
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb
   # Fb::Post reprensents a Facebook post. Post provides getters for:
-  #   :id, :url, :created_at, :type, :message, and :length.
+  #   :id, :url, :created_at, :type, :message, :length, engaged_users,
+  #   video_views, video_views_organic, video_views_paid, and total_minutes_watched.
   class Post
 
     # @option [String] the post’s unique ID.
@@ -23,6 +24,21 @@ module Fb
     # @option [String] the attached video's length or n/a.
     attr_reader :length
 
+    # @option [Integer] the number of people who clicked anywhere on the post.
+    attr_reader :engaged_users
+
+    # @option [Integer] video views of 3 seconds or more.
+    attr_reader :video_views
+
+    # @option [Integer] organic video views of 3 seconds or more.
+    attr_reader :video_views_organic
+
+    # @option [Integer] paid video views of 3 seconds or more.
+    attr_reader :video_views_paid
+
+    # @option [Integer] total minutes watched by all users who viewed the video.
+    attr_reader :total_minutes_watched
+
     # @param [Hash] options the options to initialize an instance of Fb::Post.
     # @option [String] :id The post id.
     # @option [String] :message The status message in the post or post story.
@@ -30,6 +46,11 @@ module Fb
     # @option [String] :created_time The time the post was initially published.
     # @option [String] :type A string indicating the object type of this post.
     # @option [String] :properties of the post (e.g. length).
+    # @option [Integer] :post_engaged_users The number of people who clicked anywhere on the post.
+    # @option [Integer] :post_video_views Video views of 3 seconds or more.
+    # @option [Integer] :post_video_views_organic Organic video views of 3 seconds or more.
+    # @option [Integer] :post_video_views_paid Paid video views of 3 seconds or more.
+    # @option [Integer] :post_video_view_time Total video view time (miliseconds).
     def initialize(options = {})
       @id = options[:id]
       @url = options[:permalink_url]
@@ -39,6 +60,11 @@ module Fb
       @length = options.fetch(:properties, []).find(-> { {'text' => 'n/a'} }) do |property|
         property['name'] == 'Length'
       end['text']
+      @engaged_users = options[:post_engaged_users] if options[:post_engaged_users]
+      @video_views = options[:post_video_views] if options[:post_video_views]
+      @video_views_organic = options[:post_video_views_organic] if options[:post_video_views_organic]
+      @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
+      @total_minutes_watched = (options[:post_video_view_time]/1000) if options[:post_video_view_time]
     end
 
     # @return [String] the representation of the post.

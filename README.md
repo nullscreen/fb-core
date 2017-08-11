@@ -56,8 +56,24 @@ Pass `since` (`Time`) and `until` (`Time`) options to get posts in between the t
 
 ```ruby
 options = { since: Time.new(2015, 05, 15), until: Time.now }
-page.posts(options)
+page.posts options
 # => [#<Fb::Post: id="5678", type="video">,..]
+```
+
+Pass `with_metrics: true` to include post insights for the following metrics...
+All post types: `post_engaged_users`
+Video posts only: `post_video_views_organic`, `post_video_views_paid`, `post_video_views`, and `post_video_view_time`
+
+```ruby
+page.posts with_metrics: true
+# => [#<Fb::Post: id="5678", type="video">,..]
+```
+
+You can also combine all three options...
+
+```ruby
+options = { since: Time.new(2015, 05, 15), until: Time.now, with_metrics: true }
+page.posts options
 ```
 
 Fb::Page#like_count
