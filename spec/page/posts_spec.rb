@@ -20,7 +20,7 @@ RSpec.describe 'Fb::Page#posts' do
   context 'given time options' do
     let(:options) {{
       since: Time.parse((Date.today - 7).to_s),
-      until: Time.parse(Date.today.to_s)
+      until: Time.parse((Date.today + 1).to_s)
     }}
 
     it 'returns posts on and between the time options' do
@@ -36,7 +36,7 @@ RSpec.describe 'Fb::Page#posts' do
       expect(video_posts.map &:video_views).to all (be_an Integer)
       expect(video_posts.map &:video_views_organic).to all (be_an Integer)
       expect(video_posts.map &:video_views_paid).to all (be_an Integer)
-      expect(video_posts.map &:total_minutes_watched).to all (be_an Integer)
+      expect(video_posts.map &:video_view_time).to all (be_an Integer)
     end
   end
 end

@@ -36,8 +36,8 @@ module Fb
     # @option [Integer] paid video views of 3 seconds or more.
     attr_reader :video_views_paid
 
-    # @option [Integer] total minutes watched by all users who viewed the video.
-    attr_reader :total_minutes_watched
+    # @option [Integer] the total number of milliseconds your video was watched.
+    attr_reader :video_view_time
 
     # @param [Hash] options the options to initialize an instance of Fb::Post.
     # @option [String] :id The post id.
@@ -64,7 +64,7 @@ module Fb
       @video_views = options[:post_video_views] if options[:post_video_views]
       @video_views_organic = options[:post_video_views_organic] if options[:post_video_views_organic]
       @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
-      @total_minutes_watched = (options[:post_video_view_time]/1000) if options[:post_video_view_time]
+      @video_view_time = options[:post_video_view_time] if options[:post_video_view_time]
     end
 
     # @return [String] the representation of the post.
