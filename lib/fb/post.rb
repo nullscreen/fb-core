@@ -39,6 +39,15 @@ module Fb
     # @option [Integer] the total number of milliseconds your video was watched.
     attr_reader :video_view_time
 
+    # @return [Integer] the number of comments of the post.
+    attr_reader :comment_count
+
+    # @return [Integer] the number of likes of the post.
+    attr_reader :like_count
+
+    # @return [Integer] the number of reactions of the post.
+    attr_reader :reaction_count
+
     # @param [Hash] options the options to initialize an instance of Fb::Post.
     # @option [String] :id The post id.
     # @option [String] :message The status message in the post or post story.
@@ -65,6 +74,10 @@ module Fb
       @video_views_organic = options[:post_video_views_organic] if options[:post_video_views_organic]
       @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
       @video_view_time = options[:post_video_view_time] if options[:post_video_view_time]
+
+      @comment_count = options[:comments]['summary']['total_count'] if options[:comments]
+      @reaction_count = options[:reactions]['summary']['total_count'] if options[:reactions]
+      @like_count = options[:likes]['summary']['total_count'] if options[:likes]
     end
 
     # @return [String] the representation of the post.

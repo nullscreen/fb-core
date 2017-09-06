@@ -14,6 +14,10 @@ RSpec.describe 'Fb::Page#posts' do
       expect(page.posts.map &:type).to all(be_a String)
       expect(page.posts.map &:created_at).to all(be_a Time)
       expect(page.posts.map &:length).to all(be_a String)
+
+      expect(page.posts.map &:comment_count).to all(be_a Integer)
+      expect(page.posts.map &:like_count).to all(be_a Integer)
+      expect(page.posts.map &:reaction_count).to all(be_a Integer)
     end
   end
 
