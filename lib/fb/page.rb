@@ -117,7 +117,7 @@ module Fb
       {}.tap do |params|
         params[:access_token] = @access_token
         params[:limit] = 100
-        params[:fields]= ['id', 'message', 'permalink_url', 'created_time', 'type', 'properties',
+        params[:fields]= ['id', 'message', 'permalink_url', 'created_time', 'type', 'properties', 'shares',
           'comments.limit(0).summary(true)', 'likes.limit(0).summary(true)', 'reactions.limit(0).summary(true)'].join(',')
       end
     end

@@ -48,6 +48,9 @@ module Fb
     # @return [Integer] the number of reactions of the post.
     attr_reader :reaction_count
 
+    # @return [Integer] the number of shares of the post.
+    attr_reader :share_count
+
     # @param [Hash] options the options to initialize an instance of Fb::Post.
     # @option [String] :id The post id.
     # @option [String] :message The status message in the post or post story.
@@ -75,6 +78,7 @@ module Fb
       @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
       @video_view_time = options[:post_video_view_time] if options[:post_video_view_time]
 
+      @share_count = options[:shares] ? options[:shares]["count"] : 0
       @comment_count = options[:comments]['summary']['total_count'] if options[:comments]
       @reaction_count = options[:reactions]['summary']['total_count'] if options[:reactions]
       @like_count = options[:likes]['summary']['total_count'] if options[:likes]
