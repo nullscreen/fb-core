@@ -6,8 +6,8 @@ require 'fb/core/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fb-core'
   spec.version       = Fb::Core::VERSION
-  spec.authors       = ['Claudio Baccigalupo']
-  spec.email         = ['claudio@fullscreen.net']
+  spec.authors       = ['Claudio Baccigalupo', 'Aaron Dao']
+  spec.email         = ['claudio@fullscreen.net', 'hdao61@gmail.com']
 
   spec.summary       = %q{Ruby client to interact with Facebook Graph API.}
   spec.description   = %q{Fb::Core provides methods to interact with User and
