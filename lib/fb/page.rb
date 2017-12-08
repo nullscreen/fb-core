@@ -77,6 +77,17 @@ module Fb
       end
     end
 
+    # @return [Array<Fb::Video>] the uploaded videos for the page.
+    def videos
+      @videos ||= begin
+        request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: {access_token: @access_token, limit: 25, fields: ['id', 'permalink_url', 'custom_labels', 'title'].join(',') }
+        data = request.run.body['data']
+        data.map do |video_data|
+          Video.new symbolize_keys video_data
+        end
+      end
+    end
+
     # @return [String] the representation of the page.
     def to_s
       %Q(#<#{self.class.name} #{@id} "#{@name}">)
