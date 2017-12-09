@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## Not Released - 2017/12/08
+## 1.0.0.alpha12  - 2017/12/08
 
 * [FEATURE] Add `Fb::Video` and `Fb::Page#videos`
 * [FEATURE] Add fields of "/videos" endpoint such as `comment_count`, `length` etc to `Fb::Video`
