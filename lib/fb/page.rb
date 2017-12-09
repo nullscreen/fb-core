@@ -77,6 +77,15 @@ module Fb
       end
     end
 
+    # @return [Array<Fb::Video>] the uploaded videos for the page.
+    def videos
+      @videos ||= begin
+        request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: video_params
+        data = request.run.body['data']
+        videos_with_metrics_from(data)
+      end
+    end
+
     # @return [String] the representation of the page.
     def to_s
       %Q(#<#{self.class.name} #{@id} "#{@name}">)
@@ -124,6 +133,36 @@ module Fb
 
     def post_metrics
       %i(post_engaged_users post_video_views_organic post_video_views_paid post_video_views post_video_view_time)
+    end
+
+    def videos_with_metrics_from(data)
+      data.each_slice(25).flat_map do |video_slice|
+        video_ids = video_slice.map {|video| video['id']}.join(',')
+        metrics = video_insights(ids: video_ids)
+        video_slice.map do |video_data|
+          insights_data = metrics[video_data['id']]['data'].map do |metric|
+            [metric['name'], metric['values'].last.fetch('value', 0)]
+          end.to_h
+          Video.new symbolize_keys video_data.merge(insights_data)
+        end
+      end
+    end
+
+    def video_insights(options = {})
+      params = options.merge access_token: @access_token
+      request = HTTPRequest.new path: "/v2.9/video_insights", params: params
+      request.run.body
+    end
+
+    def video_params
+      {}.tap do |params|
+        params[:access_token] = @access_token
+        params[:limit] = 25
+        params[:fields] = ['id', 'permalink_url', 'custom_labels', 'title',
+          'length', 'content_tags', 'likes.limit(0).summary(true)', 'comments.limit(0).summary(true)',
+          'created_time', 'ad_breaks', 'description', 'reactions.limit(0).summary(true)'
+        ].join(',')
+      end
     end
   end
 end

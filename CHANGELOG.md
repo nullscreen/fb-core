@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.alpha12  - 2017/12/08
+
+* [FEATURE] Add `Fb::Video` and `Fb::Page#videos`
+* [FEATURE] Add fields of "/videos" endpoint such as `comment_count`, `length` etc to `Fb::Video`
+* [FEATURE] Add metrics from "/video_insights" endpoint such as `total_views` to `Fb::Video`
+
 ## 1.0.0.alpha11  - 2017/12/01
 
 * [FEATURE] Add `share_count` to `Fb::Post` for number of shares of a post.

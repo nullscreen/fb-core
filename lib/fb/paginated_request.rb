@@ -11,7 +11,7 @@ module Fb
       response = super
       while response.body.dig 'paging', 'next'
         after = response.body.dig 'paging', 'cursors', 'after'
-        next_params = @params.merge after: after, limit: 100
+        next_params = @params.merge after: after
         next_request = HTTPRequest.new path: @path, params: next_params
         next_body = next_request.run.body
         response.body['paging'] = next_body['paging']
