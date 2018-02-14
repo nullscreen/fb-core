@@ -94,7 +94,15 @@ module Fb
   private
 
     def page_insights(metrics, options = {})
-      insights(metrics, options.merge(ids: id))[id]['data']
+      insights(metrics, options.merge(ids: id, access_token: page_access_token))[id]['data']
+    end
+
+    def page_access_token
+      @page_access_token ||= begin
+        params = {fields: 'access_token', access_token: @access_token}
+        request = HTTPRequest.new path: "/v2.9/#{@id}", params: params
+        request.run.body["access_token"]
+      end
     end
 
     def posts_from(data)
@@ -117,7 +125,7 @@ module Fb
     end
 
     def insights(metrics, options = {})
-      params = options.merge metric: metrics.join(','), access_token: @access_token
+      params = {metric: metrics.join(','), access_token: @access_token}.merge options
       request = HTTPRequest.new path: "/v2.9/insights", params: params
       request.run.body
     end
