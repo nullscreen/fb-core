@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 1.0.0.beta1  - 2018/02/14
+
+* [ENHANCEMENT] Fix and use Page Access Token when request page insights.
+
 ## 1.0.0.alpha12  - 2017/12/08
 
 * [FEATURE] Add `Fb::Video` and `Fb::Page#videos`

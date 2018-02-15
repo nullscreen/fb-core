@@ -94,7 +94,15 @@ module Fb
   private
 
     def page_insights(metrics, options = {})
-      insights(metrics, options.merge(ids: id))[id]['data']
+      insights(metrics, options.merge(ids: id, access_token: page_access_token))[id]['data']
+    end
+
+    def page_access_token
+      @page_access_token ||= begin
+        params = {fields: 'access_token', access_token: @access_token}
+        request = HTTPRequest.new path: "/v2.9/#{@id}", params: params
+        request.run.body["access_token"]
+      end
     end
 
     def posts_from(data)
@@ -117,7 +125,7 @@ module Fb
     end
 
     def insights(metrics, options = {})
-      params = options.merge metric: metrics.join(','), access_token: @access_token
+      params = {metric: metrics.join(','), access_token: @access_token}.merge options
       request = HTTPRequest.new path: "/v2.9/insights", params: params
       request.run.body
     end
@@ -138,7 +146,7 @@ module Fb
     def videos_with_metrics_from(data)
       data.each_slice(25).flat_map do |video_slice|
         video_ids = video_slice.map {|video| video['id']}.join(',')
-        metrics = video_insights(ids: video_ids)
+        metrics = video_insights(video_metrics, ids: video_ids)
         video_slice.map do |video_data|
           insights_data = metrics[video_data['id']]['data'].map do |metric|
             [metric['name'], metric['values'].last.fetch('value', 0)]
@@ -148,8 +156,8 @@ module Fb
       end
     end
 
-    def video_insights(options = {})
-      params = options.merge access_token: @access_token
+    def video_insights(metrics, options = {})
+      params = options.merge metric: metrics.join(','), access_token: @access_token
       request = HTTPRequest.new path: "/v2.9/video_insights", params: params
       request.run.body
     end
@@ -163,6 +171,12 @@ module Fb
           'created_time', 'ad_breaks', 'description', 'reactions.limit(0).summary(true)'
         ].join(',')
       end
+    end
+
+    def video_metrics
+      %i(total_video_views total_video_views_unique total_video_avg_time_watched
+      total_video_views_autoplayed total_video_views_clicked_to_play total_video_complete_views_auto_played
+      total_video_complete_views_clicked_to_play total_video_views_sound_on total_video_10s_views_sound_on)
     end
   end
 end
