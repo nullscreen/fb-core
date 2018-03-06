@@ -7,6 +7,10 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
+## 1.0.0.beta2  - 2018/03/06
+
+* [FEATURE] Add `impressions` to `Fb::Post` for number of impressions of a post.
+
 ## 1.0.0.beta1  - 2018/02/14
 
 * [ENHANCEMENT] Fix and use Page Access Token when request page insights.
