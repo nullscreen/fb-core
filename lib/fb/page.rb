@@ -139,8 +139,10 @@ module Fb
       end
     end
 
+    # https://developers.facebook.com/docs/graph-api/reference/v2.10/insights
     def post_metrics
-      %i(post_engaged_users post_video_views_organic post_video_views_paid post_video_views post_video_view_time)
+      %i(post_engaged_users post_video_views_organic post_video_views_paid post_video_views post_video_view_time
+      post_impressions)
     end
 
     def videos_with_metrics_from(data)
@@ -173,6 +175,7 @@ module Fb
       end
     end
 
+    # https://developers.facebook.com/docs/graph-api/reference/v2.10/video/video_insights
     def video_metrics
       %i(total_video_views total_video_views_unique total_video_avg_time_watched
       total_video_views_autoplayed total_video_views_clicked_to_play total_video_complete_views_auto_played
