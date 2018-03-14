@@ -43,6 +43,10 @@ module Fb
     # @option [Integer] The number of times your Page's post entered a person's screen.
     attr_reader :impressions
 
+    # @option [Integer] The average length of time people spent viewing
+    #   your video, in milliseconds.
+    attr_reader :video_avg_time_watched
+
     # @return [Integer] the number of comments of the post.
     attr_reader :comment_count
 
@@ -82,6 +86,7 @@ module Fb
       @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
       @video_view_time = options[:post_video_view_time] if options[:post_video_view_time]
       @impressions = options[:post_impressions] if options[:post_impressions]
+      @video_avg_time_watched = options[:post_video_avg_time_watched] if options[:post_video_avg_time_watched]
 
       @share_count = options[:shares] ? options[:shares]["count"] : 0
       @comment_count = options[:comments]['summary']['total_count'] if options[:comments]

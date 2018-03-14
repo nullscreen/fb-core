@@ -142,7 +142,7 @@ module Fb
     # https://developers.facebook.com/docs/graph-api/reference/v2.10/insights
     def post_metrics
       %i(post_engaged_users post_video_views_organic post_video_views_paid post_video_views post_video_view_time
-      post_impressions)
+      post_impressions post_video_avg_time_watched)
     end
 
     def videos_with_metrics_from(data)

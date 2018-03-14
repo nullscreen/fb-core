@@ -6,6 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.beta3  - 2018/03/14
+
+* [FEATURE] Add `video_avg_time_watched` to `Fb::Post` for length of average time watched.
 
 ## 1.0.0.beta2  - 2018/03/06
 
