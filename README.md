@@ -147,7 +147,7 @@ metric, period, and options (since & until). Refer to
 for a list of available metrics and periods.
 
 **Ensure that the period that you are using is supported by the metric**.
-For example, `page_views_total` (page views) is available for `week`, `week`, and `days_28`
+For example, `page_views_total` (page views) is available for `day`, `week`, and `days_28`
 whereas `page_fans` (page likes) is only available as `lifetime`.
 
 `metric_insights` returns a hash of Dates mapped to values. Passing `since` only return dates ahead

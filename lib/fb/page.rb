@@ -23,7 +23,7 @@ module Fb
       @access_token = options[:access_token]
     end
 
-    # @return [Hash<Date, Integer>]  a hash of Dates mapped to their values.
+    # @return [Hash<Date, Integer>] a hash of Dates mapped to their values.
     # @param [String] :metric the metric to fetch.
     # @param [<String, Symbol>] :period the aggregate period (day, week, days_28).
     # @option [Date] :since only return dates ahead to this date (lower bound).
@@ -42,8 +42,24 @@ module Fb
     def weekly_insights(metrics, options = {})
       since_date = options.fetch :until, Date.today - 1
       params = {period: :week, since: since_date, until: since_date + 2}
-      metrics = page_insights Array(metrics), params
-      metrics.map {|m| [m['name'].to_sym, m['values'].last.fetch('value', 0)]}.to_h
+      insights = page_insights Array(metrics), params
+      insights.map {|m| [m['name'].to_sym, m['values'].last.fetch('value', 0)]}.to_h
+    end
+
+    # @return [Hash] a hash of metrics mapped to their values.
+    # @param [Array<String, Symbol>] :metrics the metrics to fetch.
+    # @option [Time] :since sum the date period after this date.
+    # @option [Time] :until sum the period before this date.
+    def insights_with_date_range(metrics, options = {})
+      date_params = {since: options[:since].to_date - 1, until: options.fetch(:until, Date.today).to_date + 1}
+      params = {period: :day}.merge date_params
+      insights = page_insights Array(metrics), params
+      insights.map do |m|
+        [
+          m['name'].to_sym,
+          m['values'].sum {|value| value.fetch('value', 0)}
+        ]
+      end.to_h
     end
 
     # @return [Integer] the number of views of the page.
@@ -75,6 +91,17 @@ module Fb
         data = request.run.body['data']
         options[:with_metrics] ? posts_with_metrics_from(data) : posts_from(data)
       end
+    end
+
+    # @return [Array<Fb::Post>] the posts published on the page.
+    # @option [Time] :since only return posts ahead of this time.
+    # @option [Time] :until only return posts previous to this time.
+    # @option [Boolean] :with_metrics whether to include insights for the posts.
+    def posts_with_time_range(options = {})
+      time_params = {since: options[:since], until: options[:until]}
+      request = PaginatedRequest.new path: "/v2.9/#{@id}/posts", params: posts_params.merge(time_params)
+      data = request.run.body['data']
+      options[:with_metrics] ? posts_with_metrics_from(data) : posts_from(data)
     end
 
     # @return [Array<Fb::Video>] the uploaded videos for the page.
