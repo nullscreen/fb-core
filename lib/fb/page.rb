@@ -55,10 +55,14 @@ module Fb
       params = {period: :day}.merge date_params
       insights = page_insights Array(metrics), params
       insights.map do |m|
-        [
-          m['name'].to_sym,
-          m['values'].sum {|value| value.fetch('value', 0)}
-        ]
+        sum_value = if m['values'].first['value'].is_a? Hash
+            m['values'].map {|m| m['value']}.reduce({}) do |v_hash, memo|
+              memo.merge(v_hash) {|_key, old_v, new_v| old_v + new_v}
+            end
+          else
+            m['values'].sum {|value| value.fetch('value', 0)}
+          end
+        [m['name'].to_sym, sum_value]
       end.to_h
     end
 
