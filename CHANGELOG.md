@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.beta5  - 2018/03/29
+
+* [ENHANCEMENT] Allow `Fb::Page#insights_with_date_range` to fetch metrics with value of Hash type.
+
 ## 1.0.0.beta4  - 2018/03/27
 
 * [FEATURE] Add `Fb::Page#insights_with_date_range` and `Fb::Page#posts_with_time_range`.
