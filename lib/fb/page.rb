@@ -48,15 +48,16 @@ module Fb
 
     # @return [Hash] a hash of metrics mapped to their values.
     # @param [Array<String, Symbol>] :metrics the metrics to fetch.
-    # @option [Time] :since sum the date period after this date.
-    # @option [Time] :until sum the period before this date.
+    # @option [Date] :since sum the date period after this date.
+    # @option [Date] :until sum the period before this date.
     def insights_with_date_range(metrics, options = {})
-      date_params = {since: options[:since].to_date - 1, until: options.fetch(:until, Date.today).to_date + 1}
+      date_params = {until: options.fetch(:until, Date.today - 1).to_date + 2}
+      date_params[:since] = options[:since].to_date if options[:since]
       params = {period: :day}.merge date_params
       insights = page_insights Array(metrics), params
       insights.map do |m|
         sum_value = if m['values'].first['value'].is_a? Hash
-            m['values'].map {|m| m['value']}.reduce({}) do |v_hash, memo|
+            m['values'].map {|v| v['value']}.reduce({}) do |v_hash, memo|
               memo.merge(v_hash) {|_key, old_v, new_v| old_v + new_v}
             end
           else
@@ -64,6 +65,17 @@ module Fb
           end
         [m['name'].to_sym, sum_value]
       end.to_h
+    end
+
+    # @return [Array] an array of hashes of metrics and their values by day.
+    # @param [Array<String, Symbol>] :metrics the metrics to fetch.
+    # @option [Date] :since sum the date period after this date.
+    # @option [Date] :until sum the period before this date.
+    def page_insights_by_day(metrics, options = {})
+      date_params = {until: options.fetch(:until, Date.today - 1).to_date + 2}
+      date_params[:since] = options[:since].to_date if options[:since]
+      params = {period: :day}.merge date_params
+      page_insights Array(metrics), params
     end
 
     # @return [Integer] the number of views of the page.
