@@ -46,22 +46,6 @@ module Fb
       insights.map {|m| [m['name'].to_sym, m['values'].last.fetch('value', 0)]}.to_h
     end
 
-    # @return [Hash] a hash of metrics mapped to their values.
-    # @param [Array<String, Symbol>] :metrics the metrics to fetch.
-    # @option [Time] :since sum the date period after this date.
-    # @option [Time] :until sum the period before this date.
-    def insights_with_date_range(metrics, options = {})
-      date_params = {since: options[:since].to_date - 1, until: options.fetch(:until, Date.today).to_date + 1}
-      params = {period: :day}.merge date_params
-      insights = page_insights Array(metrics), params
-      insights.map do |m|
-        [
-          m['name'].to_sym,
-          m['values'].sum {|value| value.fetch('value', 0)}
-        ]
-      end.to_h
-    end
-
     # @return [Integer] the number of views of the page.
     # @param [Hash] options the options
     # @option [Date] :until only count the views until this day.
