@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe 'Fb::Page#posts_with_time_range' do
   let(:user) { Fb::User.new access_token: ENV['FB_TEST_ACCESS_TOKEN'] }
   let(:page) { user.pages.first }
