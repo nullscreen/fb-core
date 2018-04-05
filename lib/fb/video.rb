@@ -39,6 +39,9 @@ module Fb
     # @option [Time] The time the video was initially published.
     attr_reader :created_at
 
+    # @option [Time] The time when the video post was created.
+    attr_reader :backdated_time
+
     # @option [Integer] Total number of times the video was viewed for 3 seconds
     # or viewed to the end, whichever happened first. total_video_views.
     # @see https://developers.facebook.com/docs/graph-api/reference/video/video_insights/
@@ -68,31 +71,49 @@ module Fb
     # @option [Integer] The total_video_10s_views_auto_played of the video.
     attr_reader :total_10s_views_sound_on
 
+    # @option [Integer] The number of impressions of the video.
+    attr_reader :total_impressions
+
+    # @option [Integer] Number of people your video was served to.
+    attr_reader :total_impressions_unique
+
+    # @option [Integer] Number of times your video was viewed for 95% or complete.
+    attr_reader :total_complete_views
+
+    # @option [Integer] Number of unique viewers who watched for 95% or complete.
+    attr_reader :total_complete_views_unique
+
     # @param [Hash] options the options to initialize an instance of Fb::Video.
     def initialize(options = {})
       @id = options[:id]
       @url = options[:permalink_url]
       @title = options[:title]
       @description = options[:description]
-      @custom_labels = options[:custom_labels] ? Array(options[:custom_labels]) : Array.new
+      @custom_labels = options[:custom_labels] ? Array(options[:custom_labels]) : []
 
       @comment_count = options[:comments]['summary']['total_count'] if options[:comments]
       @like_count = options[:likes]['summary']['total_count'] if options[:likes]
       @reaction_count = options[:reactions]['summary']['total_count'] if options[:reactions]
-      @content_tags = options[:content_tags] ? Array(options[:content_tags]) : Array.new
-      @ad_breaks = options[:ad_breaks] ? Array(options[:ad_breaks]) : Array.new
+      @content_tags = options[:content_tags] ? Array(options[:content_tags]) : []
+      @ad_breaks = options[:ad_breaks] ? Array(options[:ad_breaks]) : []
       @length = options[:length]
-      @created_at = Time.strptime(options[:created_time], '%Y-%m-%dT%H:%M:%S+0000')
+      @created_at = Time.strptime(options[:created_time], '%Y-%m-%dT%H:%M:%S+0000') if options[:created_time]
+      @backdated_time = Time.strptime(options[:backdated_time], '%Y-%m-%dT%H:%M:%S+0000') if options[:backdated_time]
 
-      @total_views = options[:total_video_views] if options[:total_video_views]
-      @total_views_unique = options[:total_video_views_unique] if options[:total_video_views_unique]
-      @total_avg_time_watched = options[:total_video_avg_time_watched] if options[:total_video_avg_time_watched]
-      @total_views_autoplayed = options[:total_video_views_autoplayed] if options[:total_video_views_autoplayed]
-      @total_views_clicked_to_play = options[:total_video_views_clicked_to_play] if options[:total_video_views_clicked_to_play]
-      @total_complete_views_auto_played = options[:total_video_complete_views_auto_played] if options[:total_video_complete_views_auto_played]
-      @total_complete_views_clicked_to_play = options[:total_video_complete_views_clicked_to_play] if options[:total_video_complete_views_clicked_to_play]
-      @total_views_sound_on = options[:total_video_views_sound_on] if options[:total_video_views_sound_on]
-      @total_10s_views_sound_on = options[:total_video_10s_views_sound_on] if options[:total_video_10s_views_sound_on]
+      @total_views = options[:total_video_views]
+      @total_views_unique = options[:total_video_views_unique]
+      @total_avg_time_watched = options[:total_video_avg_time_watched]
+      @total_views_autoplayed = options[:total_video_views_autoplayed]
+      @total_views_clicked_to_play = options[:total_video_views_clicked_to_play]
+      @total_complete_views_auto_played = options[:total_video_complete_views_auto_played]
+      @total_complete_views_clicked_to_play = options[:total_video_complete_views_clicked_to_play]
+      @total_views_sound_on = options[:total_video_views_sound_on]
+      @total_10s_views_sound_on = options[:total_video_10s_views_sound_on]
+
+      @total_impressions = options[:total_video_impressions]
+      @total_impressions_unique = options[:total_video_impressions_unique]
+      @total_complete_views = options[:total_video_complete_views]
+      @total_complete_views_unique = options[:total_video_complete_views_unique]
     end
 
     # @return [String] the representation of the post.
