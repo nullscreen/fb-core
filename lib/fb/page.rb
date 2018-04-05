@@ -141,6 +141,7 @@ module Fb
       request.run.body
     end
 
+    # https://developers.facebook.com/docs/graph-api/reference/v2.10/post
     def posts_params
       {}.tap do |params|
         params[:access_token] = @access_token
@@ -175,11 +176,12 @@ module Fb
       request.run.body
     end
 
+    # https://developers.facebook.com/docs/graph-api/reference/v2.10/video
     def video_params
       {}.tap do |params|
         params[:access_token] = @access_token
         params[:limit] = 25
-        params[:fields] = ['id', 'permalink_url', 'custom_labels', 'title',
+        params[:fields] = ['id', 'permalink_url', 'custom_labels', 'title', 'backdated_time',
           'length', 'content_tags', 'likes.limit(0).summary(true)', 'comments.limit(0).summary(true)',
           'created_time', 'ad_breaks', 'description', 'reactions.limit(0).summary(true)'
         ].join(',')
@@ -189,6 +191,8 @@ module Fb
     # https://developers.facebook.com/docs/graph-api/reference/v2.10/video/video_insights
     def video_metrics
       %i(total_video_views total_video_views_unique total_video_avg_time_watched
+      total_video_impressions total_video_impressions_unique
+      total_video_complete_views total_video_complete_views_unique
       total_video_views_autoplayed total_video_views_clicked_to_play total_video_complete_views_auto_played
       total_video_complete_views_clicked_to_play total_video_views_sound_on total_video_10s_views_sound_on)
     end
