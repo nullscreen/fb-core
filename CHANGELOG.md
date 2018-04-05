@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.beta6  - 2018/04/05
+
+* [FEATURE] Add `backdated_time`, `total_impressions`, `total_impressions_unique`,
+`total_complete_views` and `total_complete_views_unique` to `Fb::Video`.
+
 ## 1.0.0.beta5  - 2018/03/29
 
 * [REMOVAL] Remove `Fb::Page#insights_with_date_range` method.
