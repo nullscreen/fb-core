@@ -43,7 +43,7 @@ module Fb
       since_date = options.fetch :until, Date.today - 1
       params = {period: :week, since: since_date, until: since_date + 2}
       insights = page_insights Array(metrics), params
-      insights.map {|m| [m['name'].to_sym, m['values'].last.fetch('value', 0)]}.to_h
+      insights.map {|m| [m['name'].to_sym, m['values'].last.fetch('value', nil)]}.to_h
     end
 
     # @return [Integer] the number of views of the page.

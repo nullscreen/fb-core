@@ -6,6 +6,15 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.beta7  - 2018/04/09
+
+**How to upgrade**
+
+If your code is expecting `Page#weekly_insights` method to return `0` value
+when response is empty, now it returns `nil`. This is a breaking change.
+
+* [IMPROVEMENT] Return `nil` for empty metric value in `weekly_insights`.
+
 ## 1.0.0.beta6  - 2018/04/05
 
 * [FEATURE] Add `backdated_time`, `total_impressions`, `total_impressions_unique`,

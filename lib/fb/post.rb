@@ -80,13 +80,13 @@ module Fb
       @length = options.fetch(:properties, []).find(-> { {'text' => 'n/a'} }) do |property|
         property['name'] == 'Length'
       end['text']
-      @engaged_users = options[:post_engaged_users] if options[:post_engaged_users]
-      @video_views = options[:post_video_views] if options[:post_video_views]
-      @video_views_organic = options[:post_video_views_organic] if options[:post_video_views_organic]
-      @video_views_paid = options[:post_video_views_paid] if options[:post_video_views_paid]
-      @video_view_time = options[:post_video_view_time] if options[:post_video_view_time]
-      @impressions = options[:post_impressions] if options[:post_impressions]
-      @video_avg_time_watched = options[:post_video_avg_time_watched] if options[:post_video_avg_time_watched]
+      @engaged_users = options[:post_engaged_users]
+      @video_views = options[:post_video_views]
+      @video_views_organic = options[:post_video_views_organic]
+      @video_views_paid = options[:post_video_views_paid]
+      @video_view_time = options[:post_video_view_time]
+      @impressions = options[:post_impressions]
+      @video_avg_time_watched = options[:post_video_avg_time_watched]
 
       @share_count = options[:shares] ? options[:shares]["count"] : 0
       @comment_count = options[:comments]['summary']['total_count'] if options[:comments]
