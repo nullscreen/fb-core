@@ -40,12 +40,22 @@ module Fb
     # @option [Integer] the total number of milliseconds your video was watched.
     attr_reader :video_view_time
 
-    # @option [Integer] The number of times your Page's post entered a person's screen.
+    # @option [Integer] the number of times your Page's post entered a person's screen.
     attr_reader :impressions
 
-    # @option [Integer] The average length of time people spent viewing
+    # @option [Integer] the average length of time people spent viewing
     #   your video, in milliseconds.
     attr_reader :video_avg_time_watched
+
+    # @option [Integer] the number of times people clicked on anywhere
+    #   in your posts without generating a story.
+    attr_reader :consumptions
+
+    # @option [Integer] people who have liked your page and engaged with your post.
+    attr_reader :engaged_fan
+
+    # @option [Integer] post reach by people who like your page.
+    attr_reader :fan_reach
 
     # @return [Integer] the number of comments of the post.
     attr_reader :comment_count
@@ -87,6 +97,9 @@ module Fb
       @video_view_time = options[:post_video_view_time]
       @impressions = options[:post_impressions]
       @video_avg_time_watched = options[:post_video_avg_time_watched]
+      @consumptions = options[:post_consumptions]
+      @engaged_fan = options[:post_engaged_fan]
+      @fan_reach = options[:post_fan_reach]
 
       @share_count = options[:shares] ? options[:shares]["count"] : 0
       @comment_count = options[:comments]['summary']['total_count'] if options[:comments]

@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0.beta8  - 2018/04/18
+
+* [FEATURE] Add `consumptions`, `engaged_fan`, and `fan_reach` to `Fb::Post`.
+
 ## 1.0.0.beta7  - 2018/04/09
 
 **How to upgrade**
