@@ -8,7 +8,7 @@ For more information about changelogs, check
 
 ## 1.0.0.beta8  - 2018/04/18
 
-* [FEATURE] Add `consumptions`, `engaged_fan`, and `fan_reach` to `Fb::Post`.
+* [FEATURE] Add `consumptions`, `engaged_fan`, `fan_reach` and many more metrics to `Fb::Post`.
 
 ## 1.0.0.beta7  - 2018/04/09
 

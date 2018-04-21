@@ -36,51 +36,51 @@ module Fb
     # @option [Float] the video’s length.
     attr_reader :length
 
-    # @option [Time] The time the video was initially published.
+    # @option [Time] the time the video was initially published.
     attr_reader :created_at
 
-    # @option [Time] The time when the video post was created.
+    # @option [Time] the time when the video post was created.
     attr_reader :backdated_time
 
-    # @option [Integer] Total number of times the video was viewed for 3 seconds
+    # @option [Integer] total number of times the video was viewed for 3 seconds
     # or viewed to the end, whichever happened first. total_video_views.
     # @see https://developers.facebook.com/docs/graph-api/reference/video/video_insights/
     attr_reader :total_views
 
-    # @option [Integer] The total_video_views_unique of the video.
+    # @option [Integer] the total_video_views_unique of the video.
     attr_reader :total_views_unique
 
-    # @option [Integer] The total_video_avg_time_watched of the video.
+    # @option [Integer] the total_video_avg_time_watched of the video.
     attr_reader :total_avg_time_watched
 
-    # @option [Integer] The total_video_views_autoplayed of the video.
+    # @option [Integer] the total_video_views_autoplayed of the video.
     attr_reader :total_views_autoplayed
 
-    # @option [Integer] The total_video_views_clicked_to_play of the video.
+    # @option [Integer] the total_video_views_clicked_to_play of the video.
     attr_reader :total_views_clicked_to_play
 
-    # @option [Integer] The total_video_complete_views_auto_played of the video.
+    # @option [Integer] the total_video_complete_views_auto_played of the video.
     attr_reader :total_complete_views_auto_played
 
-    # @option [Integer] The total_video_complete_views_clicked_to_play of the video.
+    # @option [Integer] the total_video_complete_views_clicked_to_play of the video.
     attr_reader :total_complete_views_clicked_to_play
 
-    # @option [Integer] The total_video_views_sound_on of the video.
+    # @option [Integer] the total_video_views_sound_on of the video.
     attr_reader :total_views_sound_on
 
-    # @option [Integer] The total_video_10s_views_auto_played of the video.
+    # @option [Integer] the total_video_10s_views_auto_played of the video.
     attr_reader :total_10s_views_sound_on
 
-    # @option [Integer] The number of impressions of the video.
+    # @option [Integer] the number of impressions of the video.
     attr_reader :total_impressions
 
-    # @option [Integer] Number of people your video was served to.
+    # @option [Integer] number of people your video was served to.
     attr_reader :total_impressions_unique
 
-    # @option [Integer] Number of times your video was viewed for 95% or complete.
+    # @option [Integer] number of times your video was viewed for 95% or complete.
     attr_reader :total_complete_views
 
-    # @option [Integer] Number of unique viewers who watched for 95% or complete.
+    # @option [Integer] number of unique viewers who watched for 95% or complete.
     attr_reader :total_complete_views_unique
 
     # @param [Hash] options the options to initialize an instance of Fb::Video.
