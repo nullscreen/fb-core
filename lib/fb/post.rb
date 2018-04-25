@@ -6,6 +6,7 @@ module Fb
   #   video_views, video_views_organic, video_views_paid, and so on.
   # @see https://developers.facebook.com/docs/graph-api/reference/v2.10/post
   class Post
+    attr_accessor :custom_labels
 
     # @option [String] the post’s unique ID.
     attr_reader :id
