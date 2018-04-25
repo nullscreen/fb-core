@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 1.0.0.beta9  - 2018/04/20
+
+* [FEATURE] Add `:without_lifetime_metrics` option to `Page#videos` method .
+
 ## 1.0.0.beta8  - 2018/04/20
 
 * [FEATURE] Add `consumptions`, `engaged_fan`, `fan_reach` and many more metrics to `Fb::Post`.
