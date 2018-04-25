@@ -6,8 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-
-## 1.0.0.beta9  - 2018/04/20
+## 1.0.0.beta9  - 2018/04/25
 
 * [FEATURE] Add `:without_lifetime_metrics` option to `Page#videos` method .
 
