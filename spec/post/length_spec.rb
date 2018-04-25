@@ -14,7 +14,7 @@ RSpec.describe 'Fb::Post#length' do
     end
   end
 
-  context 'given a video post with a length property' do
+  context 'given a video post without a length property' do
     let(:post) { Fb::Post.new type: 'video', created_time: '2008-08-08T08:00:00+0000' }
     it 'returns length as n/a' do
       expect(post.length).to eq 'n/a'

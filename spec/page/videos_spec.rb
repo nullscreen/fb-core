@@ -25,4 +25,11 @@ RSpec.describe 'Fb::Page#videos' do
       # expect(page.videos.map &:total_views_sound_on).to all (be_an Integer)
     end
   end
+
+  context 'given without_lifetime_metrics' do
+    it 'returns an array of videos without metrics' do
+      expect(page.videos(without_lifetime_metrics: true).map &:id).to all (be_an String)
+      expect(page.videos).to be_a(Array)
+    end
+  end
 end

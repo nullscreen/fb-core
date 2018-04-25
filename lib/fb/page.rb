@@ -89,11 +89,11 @@ module Fb
     end
 
     # @return [Array<Fb::Video>] the uploaded videos for the page.
-    def videos
+    def videos(options = {})
       @videos ||= begin
         request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: video_params
         data = request.run.body['data']
-        videos_with_metrics_from(data)
+        options[:without_lifetime_metrics] ? videos_from(data) : videos_with_metrics_from(data)
       end
     end
 
@@ -183,6 +183,12 @@ module Fb
           end.to_h
           Video.new symbolize_keys video_data.merge(insights_data)
         end
+      end
+    end
+
+    def videos_from(data)
+      data.map do |video_data|
+        Video.new symbolize_keys video_data
       end
     end
 
