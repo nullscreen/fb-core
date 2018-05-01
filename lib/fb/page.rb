@@ -89,9 +89,14 @@ module Fb
     end
 
     # @return [Array<Fb::Video>] the uploaded videos for the page.
+    # @param [Hash] options the options
+    # @option [Time] :since only return videos ahead of this time.
+    # @option [Time] :until only return videos previous to this time.
+    # @option [Boolean] :without_lifetime_metrics whether to include insights for the videos.
     def videos(options = {})
       @videos ||= begin
-        request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: video_params
+        params = video_params.merge options
+        request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: params
         data = request.run.body['data']
         options[:without_lifetime_metrics] ? videos_from(data) : videos_with_metrics_from(data)
       end
