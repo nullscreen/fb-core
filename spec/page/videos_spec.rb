@@ -26,6 +26,18 @@ RSpec.describe 'Fb::Page#videos' do
     end
   end
 
+  context 'given time options' do
+    let(:options) {{
+      since: Time.parse((Date.today - 7).to_s),
+      until: Time.parse((Date.today + 1).to_s)
+    }}
+
+    it 'returns videos between the time options' do
+      expect(page.videos(options).map &:created_at).to all (be >= options[:since])
+      expect(page.videos(options).map &:created_at).to all (be <= options[:until])
+    end
+  end
+
   context 'given without_lifetime_metrics' do
     it 'returns an array of videos without metrics' do
       expect(page.videos(without_lifetime_metrics: true).map &:id).to all (be_an String)
