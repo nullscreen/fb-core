@@ -3,6 +3,6 @@ module Fb
   class Core
     # @return [String] the SemVer-compatible gem version.
     # @see http://semver.org
-    VERSION = '1.0.0.beta9'
+    VERSION = '1.0.0.beta10'
   end
 end
