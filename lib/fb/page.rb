@@ -70,10 +70,11 @@ module Fb
     # @option [Boolean] :with_metrics whether to include insights for the posts.
     def posts(options = {})
       @posts ||= begin
+        with_metrics = options.delete :with_metrics
         params = posts_params.merge options
         request = PaginatedRequest.new path: "/v2.9/#{@id}/posts", params: params
         data = request.run.body['data']
-        options[:with_metrics] ? posts_with_metrics_from(data) : posts_from(data)
+        with_metrics ? posts_with_metrics_from(data) : posts_from(data)
       end
     end
 
@@ -95,10 +96,11 @@ module Fb
     # @option [Boolean] :without_lifetime_metrics whether to include insights for the videos.
     def videos(options = {})
       @videos ||= begin
+        without_lifetime_metrics = options.delete :without_lifetime_metrics
         params = video_params.merge options
         request = PaginatedRequest.new path: "/v2.9/#{@id}/videos", params: params
         data = request.run.body['data']
-        options[:without_lifetime_metrics] ? videos_from(data) : videos_with_metrics_from(data)
+        without_lifetime_metrics ? videos_from(data) : videos_with_metrics_from(data)
       end
     end
 
