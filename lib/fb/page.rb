@@ -32,7 +32,7 @@ module Fb
       insights = page_insights Array(metric), options.merge(period: period)
       values = insights.find{|data| data['name'] == metric}['values']
       values.map do |v|
-        [Date.strptime(v['end_time'], '%Y-%m-%dT%H:%M:%S+0000'), v.fetch('value', 0)]
+        [Date.parse(v['end_time']), v.fetch('value', 0)]
       end.to_h
     end
 

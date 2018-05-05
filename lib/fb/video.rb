@@ -97,8 +97,8 @@ module Fb
       @content_tags = options[:content_tags] ? Array(options[:content_tags]) : []
       @ad_breaks = options[:ad_breaks] ? Array(options[:ad_breaks]) : []
       @length = options[:length]
-      @created_at = Time.strptime(options[:created_time], '%Y-%m-%dT%H:%M:%S+0000') if options[:created_time]
-      @backdated_time = Time.strptime(options[:backdated_time], '%Y-%m-%dT%H:%M:%S+0000') if options[:backdated_time]
+      @created_at = Time.parse(options[:created_time]) if options[:created_time]
+      @backdated_time = Time.parse(options[:backdated_time]) if options[:backdated_time]
 
       @total_views = options[:total_video_views]
       @total_views_unique = options[:total_video_views_unique]
