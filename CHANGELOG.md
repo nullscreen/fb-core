@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 1.0.0 - Unreleased
+
+* [IMPROVEMENT] Return UTC time for String value of `created_time`, `backdated_time`,
+`end_time`, etc from Facebook to have exact time.
+
 ## 1.0.0.beta10  - 2018/05/01
 
 * [FEATURE] Add `:since` and `:until` option to `Page#videos` method.
