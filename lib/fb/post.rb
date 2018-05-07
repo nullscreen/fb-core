@@ -236,7 +236,7 @@ module Fb
     def initialize(options = {})
       @id = options[:id]
       @url = options[:permalink_url]
-      @created_at = Time.parse options[:created_time]
+      @created_at = Time.parse(options[:created_time]) if options[:created_time]
       @type = options[:type]
       @message = options[:message]
       @length = options.fetch(:properties, []).find(-> { {'text' => 'n/a'} }) do |property|
