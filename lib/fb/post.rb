@@ -1,5 +1,5 @@
-# Ruby client to authenticate a Facebook user.
-# @see http://www.rubydoc.info/gems/Fb/
+require 'time'
+
 module Fb
   # Fb::Post reprensents a Facebook post. Post provides getters for:
   #   :id, :url, :created_at, :type, :message, :length, engaged_users,

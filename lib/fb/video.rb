@@ -1,3 +1,5 @@
+require 'time'
+
 module Fb
   # Fb::Video represents a Facebook video. Fb::Video provides getter methods.
   # @see https://developers.facebook.com/docs/graph-api/reference/video/
