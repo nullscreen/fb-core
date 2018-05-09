@@ -1,3 +1,5 @@
+require 'date'
+
 module Fb
   # Provides methods to interact with Facebook pages through the Graph API.
   # @see https://developers.facebook.com/docs/graph-api/reference/page/
