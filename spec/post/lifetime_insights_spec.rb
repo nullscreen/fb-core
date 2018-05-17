@@ -3,11 +3,7 @@ require 'spec_helper'
 RSpec.describe 'Fb::Post#lifetime_insights' do
   let(:user) { Fb::User.new access_token: ENV['FB_TEST_ACCESS_TOKEN'] }
   let(:page) { user.pages.first }
-  let(:options) {{
-    since: Time.parse((Date.today - 7).to_s),
-    until: Time.parse((Date.today + 1).to_s)
-  }}
-  let(:post) { page.posts(options).first }
+  let(:post) { page.posts.first }
 
   context 'given a post and valid metrics' do
     let(:metrics) { %i(post_video_views post_video_view_time) }

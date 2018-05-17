@@ -11,6 +11,7 @@ For more information about changelogs, check
 
 * [IMPROVEMENT] Return UTC time for String value of `created_time`, `backdated_time`,
 `end_time`, etc from Facebook to have exact time.
+* [FEATURE] Add Fb::Post#lifetime_insights` method to get metrics of each post.
 
 ## 1.0.0.beta10  - 2018/05/01
 
