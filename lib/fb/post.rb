@@ -300,6 +300,9 @@ module Fb
       @video_view_time_organic = options[:post_video_view_time_organic]
     end
 
+    # @return [Hash] a hash of metrics mapped to their values.
+    # @param [Array<String, Symbol>] :metrics the metrics to fetch.
+    # @param [String] :page_access_token page access token of its page.
     def lifetime_insights(metrics, page_access_token)
       params = { metric: Array(metrics).join(","), access_token: page_access_token, period: "lifetime", ids: id }
       request = HTTPRequest.new path: "/v2.9/insights", params: params
