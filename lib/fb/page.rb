@@ -13,6 +13,8 @@ module Fb
     # @option [String] the page’s category.
     attr_reader :category
 
+    attr_reader :access_token
+
     # @param [Hash] options to initialize a Page object.
     # @option [String] :id The page’s unique ID.
     # @option [String] :name The page’s name.

@@ -5,7 +5,7 @@ module Fb
   #   :id, :url, :created_at, :type, :message, :length, engaged_users,
   #   video_views, video_views_organic, video_views_paid, and so on.
   # @see https://developers.facebook.com/docs/graph-api/reference/v2.10/post
-  class Post
+  class Post < Resource
     attr_accessor :custom_labels
 
     # @option [String] the post’s unique ID.
@@ -298,6 +298,20 @@ module Fb
       @video_views_sound_on = options[:post_video_views_sound_on]
       @video_view_time = options[:post_video_view_time]
       @video_view_time_organic = options[:post_video_view_time_organic]
+    end
+
+    # @return [Hash] a hash of metrics mapped to their values.
+    # @param [Array<String, Symbol>] :metrics the metrics to fetch.
+    # @param [String] :page_access_token page access token of its page.
+    def lifetime_insights(metrics, page_access_token)
+      params = { metric: Array(metrics).join(","), access_token: page_access_token, period: "lifetime", ids: id }
+      request = HTTPRequest.new path: "/v2.9/insights", params: params
+      insights = request.run.body
+
+      data = insights[id]['data'].map do |metric|
+        [metric['name'], metric['values'].last.fetch('value', 0)]
+      end.to_h
+      symbolize_keys data
     end
 
     # @return [String] the representation of the post.
