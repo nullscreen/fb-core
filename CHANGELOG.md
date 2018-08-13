@@ -7,12 +7,24 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
-## 1.0.0 - Unreleased
+## 1.0.0.beta11
 
 * [IMPROVEMENT] Return UTC time for String value of `created_time`, `backdated_time`,
 `end_time`, etc from Facebook to have exact time.
 * [FEATURE] Add `Fb::Post#lifetime_insights` method to get metrics of each post.
 * [BUGFIX] Return empty hash instead of nil when a metric returns empty array.
+
+**How to upgrade**
+
+If your code calls `.consumptions` then you must replace that code with `.clicks`
+since those metrics will no longer be supported by Facebook API as of
+[August 1, 2018](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#newnames).
+If your code calls `fan_reach` from a Fb::Post then you must remove that code
+because Facebook removed that metric from their API silently.
+
+* [REMOVAL] Remove `#consumptions` method for posts
+* [REMOVAL] Remove `#fan_reach` method for posts
+* [FEATURE] Add `#clicks` method for posts
 
 ## 1.0.0.beta10  - 2018/05/01
 
