@@ -171,8 +171,8 @@ module Fb
       post_impressions_paid post_impressions_paid_unique post_impressions_fan
       post_impressions_fan_unique post_impressions_fan_paid post_impressions_fan_paid_unique
       post_impressions_organic post_impressions_organic_unique post_impressions_viral
-      post_consumptions post_engaged_users post_negative_feedback post_engaged_fan
-      post_fan_reach post_reactions_like_total post_reactions_love_total
+      post_clicks post_engaged_users post_negative_feedback post_engaged_fan
+      post_reactions_like_total post_reactions_love_total
       post_reactions_wow_total post_reactions_haha_total post_reactions_sorry_total
       post_reactions_anger_total post_video_avg_time_watched post_video_complete_views_organic
       post_video_complete_views_organic_unique post_video_complete_views_paid

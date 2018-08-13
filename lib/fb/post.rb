@@ -100,7 +100,7 @@ module Fb
 
     # @option [Integer] the number of times people clicked on anywhere
     #   in your posts without generating a story.
-    attr_reader :consumptions
+    attr_reader :clicks
 
     # @option [Integer] the number of people who clicked anywhere on the post.
     attr_reader :engaged_users
@@ -110,9 +110,6 @@ module Fb
 
     # @option [Integer] people who have liked your page and engaged with your post.
     attr_reader :engaged_fan
-
-    # @option [Integer] post reach by people who like your page.
-    attr_reader :fan_reach
 
     # @option [Integer] total "like" reactions of a post.
     attr_reader :reactions_like_total
@@ -263,11 +260,10 @@ module Fb
       @impressions_organic = options[:post_impressions_organic]
       @impressions_organic_unique = options[:post_impressions_organic_unique]
       @impressions_viral = options[:post_impressions_viral]
-      @consumptions = options[:post_consumptions]
+      @clicks = options[:post_clicks]
       @engaged_users = options[:post_engaged_users]
       @negative_feedback = options[:post_negative_feedback]
       @engaged_fan = options[:post_engaged_fan]
-      @fan_reach = options[:post_fan_reach]
       @reactions_like_total = options[:post_reactions_like_total]
       @reactions_love_total = options[:post_reactions_love_total]
       @reactions_wow_total = options[:post_reactions_wow_total]
