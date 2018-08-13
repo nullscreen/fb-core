@@ -20,7 +20,8 @@ If your code calls `.consumptions` then you must replace that code with `.clicks
 since those metrics will no longer be supported by Facebook API as of
 [August 1, 2018](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#newnames).
 If your code calls `fan_reach` from a Fb::Post then you must remove that code
-because Facebook removed that metric from their API silently.
+because Facebook removed that metric from [version 3.0](https://developers.facebook.com/docs/graph-api/changelog/version3.0) and they already applied the change to v2.9 the version currently
+fb-core uses.
 
 * [REMOVAL] Remove `#consumptions` method for posts
 * [REMOVAL] Remove `#fan_reach` method for posts
